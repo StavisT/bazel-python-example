@@ -1,0 +1,15 @@
+  
+load("@pip//:requirements.bzl", "requirement")
+load("@rules_python//python:defs.bzl", "py_library", "py_binary")
+
+py_library(
+    name = 'greeting',
+    srcs = ['greeting.py'],
+)
+
+py_binary(
+    name = 'hello',
+    main = 'hello.py',
+    srcs = ['hello.py'],
+    deps = [':greeting']
+)
