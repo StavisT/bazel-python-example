@@ -127,3 +127,9 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Bazel
+bazel-out
+bazel-bin
+bazel-scrapybazel-testlogs
+.user.bazelrc
