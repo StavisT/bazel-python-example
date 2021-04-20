@@ -1,4 +1,4 @@
-# Build with Bazel
+# Building a python container with Bazel
 
 
 ## Installing bazel
@@ -7,11 +7,24 @@ Install Bazel locally through [Bazelisk](https://github.com/bazelbuild/bazelisk)
 
 Install Bazel watcher (ibazel) locally through [NPM](https://github.com/bazelbuild/bazel-watcher#npm).
 
-## Some commands
+## Building a python container with bazel
+
+```
+# build container with bazel
+bazel build hello
+
+# run the binary
+bazel-bin/hello
+```
+
+## Some other commands
 
 ```
 # list all local targets
 bazel query //...
+
+bazel query 'deps(hello)'
+bazel query 'kind("source file", deps(hello))'
 
 # build with bazel
 bazel build hello
