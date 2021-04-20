@@ -20,17 +20,11 @@ bazel-bin/hello
 ## Some other commands
 
 ```
-# list all local targets
-bazel query //...
-
+# see dependencies of hello:
 bazel query 'deps(hello)'
+
+# source files in hello:
 bazel query 'kind("source file", deps(hello))'
-
-# build with bazel
-bazel build hello
-
-# run the binary
-bazel-bin/hello
 ```
 
 
