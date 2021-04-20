@@ -129,8 +129,5 @@ dmypy.json
 .pyre/
 
 # Bazel
-bazel-out
-bazel-bin
-bazel-src
-bazel-testlogs
+bazel-*
 .user.bazelrc
