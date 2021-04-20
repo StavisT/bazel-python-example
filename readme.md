@@ -10,11 +10,24 @@ Install Bazel watcher (ibazel) locally through [NPM](https://github.com/bazelbui
 ## Building a python container with bazel
 
 ```
-# build container with bazel
+# build container for simple_greet with bazel
+cd simple_greet
 bazel build hello
 
 # run the binary
 bazel-bin/hello
+# expect "Hello, Simon" returned
+
+# build container for greet_any_name
+cd ../greet_any_namy/
+bazel build hello-name
+
+# run the binary
+bazel-bin/hello-name
+# expect "No input arguments provided"
+
+bazel-bin/hello-name "Not simon"
+# Expect "Hello, Not Simon"
 ```
 
 ## Some other commands
