@@ -26,8 +26,3 @@ bazel query 'deps(hello)'
 # source files in hello:
 bazel query 'kind("source file", deps(hello))'
 ```
-
-
-
-
-
