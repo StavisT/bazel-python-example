@@ -32,6 +32,7 @@ bazel-bin/src/simple_greet/hello
 # expect "Hello, Simon" returned
 ```
 
+
 ## Greet_any_name: Python example with input arguments
 ```
 # first cd into the directory
@@ -43,4 +44,20 @@ bazel run :hello-name
 
 # changing the input argument in BUILD.bazel would allow the return o another name
 ```
+
+
+## flask_service: Simple flask service
+See the simple flask service example in src/flask_service
+
+Notice here that there are added dependencies for both the py_library and the py_binary.
+The exact version of these dependencies is handled through poetry.
+
+```
+# first cd into the directory
+cd src/flask_service
+
+# run the code with bazel
+bazel run :run
+```
+you will see a lot of output in the terminal and the service is now up and running at http://0.0.00:5050. By going to http://0.0.00:5050/health/<something> you will se the return of the function `health` in app.py.
 
