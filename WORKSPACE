@@ -1,5 +1,6 @@
 workspace(name = "src")
 
+#load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
 http_archive(
@@ -25,6 +26,9 @@ pip_install(
     # 2. Pre-compiled python interpreter included with http_archive
     # 3. Wrapper script, like in the autodetecting python toolchain.
     #python_interpreter_target = "@python_interpreter//:python_bin",
+
+    # default value is "python"
+    python_interpreter="python3",
 
     # (Optional) You can set quiet to False if you want to see pip output.
     #quiet = False,
