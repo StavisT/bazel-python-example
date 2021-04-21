@@ -1,0 +1,37 @@
+load("@pip_deps//:requirements.bzl", "requirement")
+load("@rules_python//python:defs.bzl", "py_binary", "py_library")
+
+package(default_visibility = ["//visibility:public"])
+
+py_library(
+    name = "everything",
+    srcs = [
+        "app.py",
+    ],
+    deps = [
+        requirement("flask"),
+    ],
+)
+
+py_binary(
+    name = "run",
+    srcs = [
+        "main.py",
+    ],
+    args = [
+        "--bind",
+        "0.0.0.0:5050",
+        "--log-level=debug",
+        "--limit-request-line",
+        "2048",
+        "--workers",
+        "1",
+        "--preload",
+        "app:app",
+    ],
+    main = "main.py",
+    deps = [
+        requirement("gunicorn"),
+        ":everything",
+    ],
+)
