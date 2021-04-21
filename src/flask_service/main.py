@@ -5,6 +5,7 @@ import sys
 from gunicorn.app.wsgiapp import run
 from gunicorn.http import message
 
+logger = logging.getLogger(__name__)
 
 if __name__ == "__main__":
     message.MAX_REQUEST_LINE = 2048

@@ -31,7 +31,7 @@ py_binary(
     ],
     main = "main.py",
     deps = [
-        requirement("gunicorn)",
+        requirement("gunicorn"),
         ":everything",
     ],
 )
