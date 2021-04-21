@@ -1,38 +1,38 @@
-workspace(name = "src")
+workspace(name = "output")
 
-#load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
+# Python setup
 http_archive(
     name = "rules_python",
     sha256 = "778197e26c5fbeb07ac2a2c5ae405b30f6cb7ad1f5510ea6fdac03bded96cc6f",
     url = "https://github.com/bazelbuild/rules_python/releases/download/0.2.0/rules_python-0.2.0.tar.gz",
 )
 
+# The Bazel Federation is a set of rules at versions that have been tested together to ensure interoperability.
+http_archive(
+    name = "bazel_federation",
+    sha256 = "9d4fdf7cc533af0b50f7dd8e58bea85df3b4454b7ae00056d7090eb98e3515cc",  # pragma: allowlist secret
+    strip_prefix = "bazel-federation-130c84ec6d60f31b711400e8445a8d0d4a2b5de8",
+    type = "zip",
+    url = "https://github.com/bazelbuild/bazel-federation/archive/130c84ec6d60f31b711400e8445a8d0d4a2b5de8.zip",
+)
+load("@bazel_federation//:repositories.bzl", "rules_python")
+
+rules_python()
+
+load("@bazel_federation//setup:rules_python.bzl", "rules_python_setup")
+
+rules_python_setup()
+
+#poetry
 load("@rules_python//python:pip.bzl", "pip_install")
+load("//build/rules:poetry.bzl", "poetry_export")
+
+poetry_export(name = "poetry_requirements")
 
 pip_install(
-    # (Optional) You can provide extra parameters to pip.
-    # Here, make pip output verbose (this is usable with `quiet = False`).
-    #extra_pip_args = ["-v"],
-
-    # (Optional) You can exclude custom elements in the data section of the generated BUILD files for pip packages.
-    # Exclude directories with spaces in their names in this example (avoids build errors if there are such directories).
-    #pip_data_exclude = ["**/* */**"],
-
-    # (Optional) You can provide a python_interpreter (path) or a python_interpreter_target (a Bazel target, that
-    # acts as an executable). The latter can be anything that could be used as Python interpreter. E.g.:
-    # 1. Python interpreter that you compile in the build file (as above in @python_interpreter).
-    # 2. Pre-compiled python interpreter included with http_archive
-    # 3. Wrapper script, like in the autodetecting python toolchain.
-    #python_interpreter_target = "@python_interpreter//:python_bin",
-
-    # default value is "python"
-    python_interpreter="python3",
-
-    # (Optional) You can set quiet to False if you want to see pip output.
-    #quiet = False,
-
-    # Uses the default repository name "pip"
-    requirements = "//:requirements.txt",
+    name = "pip_deps",
+    python_interpreter = "python3",
+    requirements = "@poetry_requirements//:requirements.txt",
 )
