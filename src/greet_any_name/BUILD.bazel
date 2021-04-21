@@ -1,4 +1,4 @@
-load("@pip//:requirements.bzl", "requirement")
+load("@pip_deps//:requirements.bzl", "requirement")
 load("@rules_python//python:defs.bzl", "py_library", "py_binary")
 
 py_library(
@@ -12,6 +12,6 @@ py_binary(
     srcs = ['hello_name.py'],
     deps = [':greeting'],
     args = [
-        "name",
+        "Simon-Stavland",
     ],
 )

@@ -1,41 +1,46 @@
-# Building a python container with Bazel
+# Example of how to use python with bazel
 
+## Prerequisites
+Following tools are expected to be preinstalled on your machine:
+1. `brew install poetry` poetry is a python packaging and dependency management tool.
 
-## Installing bazel
+2. `brew install bazelisk` bazel is a tool for automating building and testing of software.
+Bazelisk ensures that you always use the version of Bazel specified in `.bazelversion`.
 
-Install Bazel locally through [Bazelisk](https://github.com/bazelbuild/bazelisk). This ensures that you always use the version of Bazel specified in `.bazelversion`.
+## Setup with bazel
+WORKSPACE needs to be in the root directory and imports necessary packages for bazel, such as installing dependenies with poetry. Notice a custom script for installing dependcies with poetry in build/rules/poetry.bzl.
 
-Install Bazel watcher (ibazel) locally through [NPM](https://github.com/bazelbuild/bazel-watcher#npm).
+Alle sub directories has a BUILD.bazel file. This can be empty.
 
-## Building a python container with bazel
+## Simple_greet: Simple python example
+See the very simple python example in src/simple_greet
 
 ```
-# build container for simple_greet with bazel
-cd simple_greet
+# first cd into the directory
+cd src/simple_greet
+
+# run the code through bazel with
+bazel run :hello
+# this allow you to run the code without having to create a container
+
+# build binary for simple_greet with bazel
 bazel build hello
 
 # run the binary
-bazel-bin/hello
+cd ...
+bazel-bin/src/simple_greet/hello
 # expect "Hello, Simon" returned
-
-# build container for greet_any_name
-cd ../greet_any_namy/
-bazel build hello-name
-
-# run the binary
-bazel-bin/hello-name
-# expect "No input arguments provided"
-
-bazel-bin/hello-name "Not simon"
-# Expect "Hello, Not Simon"
 ```
 
-## Some other commands
-
+## Greet_any_name: Python example with input arguments
 ```
-# see dependencies of hello:
-bazel query 'deps(hello)'
+# first cd into the directory
+cd src/greet_any_name
 
-# source files in hello:
-bazel query 'kind("source file", deps(hello))'
+# run the code through bazel with
+bazel run :hello-name
+# expected return is "Hello, Simon-Stavland"
+
+# changing the input argument in BUILD.bazel would allow the return o another name
 ```
+

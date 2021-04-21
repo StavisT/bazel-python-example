@@ -1,6 +1,6 @@
 import sys
 
-from greeting import greet
+from src.greet_any_name.greeting import greet
 
 def run_greet():
     if len(sys.argv) == 1:
